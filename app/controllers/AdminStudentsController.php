@@ -86,7 +86,7 @@ class AdminStudentsController extends BaseController {
 
 	        		$fid = Str::random(12);
 	        		
-	        		$destinationPath = get_os_image_path()."/images/$dir/";
+	        		$destinationPath = Config::get('otherapp.images_path')."/images/$dir/";
 			        $newFileName = "$fid";
 			        $upload_success = $file->move($destinationPath, $newFileName);
 			    }
@@ -142,7 +142,7 @@ class AdminStudentsController extends BaseController {
 		//		
 
 		$stu = Student::find($id);
-		$images_path = get_os_image_path().e("/$stu->images_path");
+		$images_path = Config::get('otherapp.images_path').e("/$stu->images_path");
 
 		//get all of the base names of the files
 		$files = array_map('basename', File::files($images_path));
@@ -228,7 +228,7 @@ class AdminStudentsController extends BaseController {
 
 	        		$fid = Str::random(12);
 	        		
-	        		$destinationPath = get_os_image_path().'/'.$stu->images_path;
+	        		$destinationPath = Config::get('otherapp.images_path').'/'.$stu->images_path;
 			        $newFileName = "$fid";
 			        $upload_success = $file->move($destinationPath, $newFileName);
 			    }

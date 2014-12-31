@@ -84,7 +84,7 @@ class AdminVolunteersController extends BaseController {
     			if($validator->passes())
     			{
 	        		
-	        		$destinationPath = get_os_image_path()."/images/$dir/";
+	        		$destinationPath = Config::get('otherapp.images_path')."/images/$dir/";
 			        $newFileName = Str::random(12);
 			        $upload_success = $file->move($destinationPath, $newFileName);
 			    }
@@ -139,7 +139,7 @@ class AdminVolunteersController extends BaseController {
 		//		
 
 		$volunteers = Member::find($id);
-		$images_path = get_os_image_path().e("/$volunteers->images_path");
+		$images_path = Config::get('otherapp.images_path').e("/$volunteers->images_path");
 
 		//get all of the base names of the files
 		$files = array_map('basename', File::files($images_path));
@@ -223,7 +223,7 @@ class AdminVolunteersController extends BaseController {
 			if($validator->passes())
 			{
         		
-        		$destinationPath = get_os_image_path()."/images/$dir/";
+        		$destinationPath = Config::get('otherapp.images_path')."/images/$dir/";
 		        $newFileName = Str::random(12);
 		        $upload_success = $file->move($destinationPath, $newFileName);
 		    }

@@ -90,7 +90,7 @@ class AdminNonProfitController extends BaseController {
 
 	        		$fid = Str::random(12);
 	        		
-	        		$destinationPath = get_os_image_path()."/images/$dir/";
+	        		$destinationPath = Config::get('otherapp.images_path')."/images/$dir/";
 			        $newFileName = "$fid";
 			        $upload_success = $file->move($destinationPath, $newFileName);
 			    }
@@ -147,7 +147,7 @@ class AdminNonProfitController extends BaseController {
 		//		
 
 		$nonprofits = Nonprofit::find($id);
-		$images_path = get_os_image_path().e("/$nonprofits->images_path");
+		$images_path = Config::get('otherapp.images_path').e("/$nonprofits->images_path");
 
 		//get all of the base names of the files
 		$files = array_map('basename', File::files($images_path));
@@ -233,7 +233,7 @@ class AdminNonProfitController extends BaseController {
 
 	        		$fid = Str::random(12);
 	        		
-	        		$destinationPath = get_os_image_path().'/'.$nonProf->images_path;
+	        		$destinationPath = Config::get('otherapp.images_path').'/'.$nonProf->images_path;
 			        $newFileName = "$fid";
 			        $upload_success = $file->move($destinationPath, $newFileName);
 			    }
