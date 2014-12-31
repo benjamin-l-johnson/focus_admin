@@ -3,7 +3,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Set the place where images will be stored
+| In our setting there are two apps, think of it as a reader and writer
 |--------------------------------------------------------------------------
 |
 | Here is where you can register all of the routes for an application.
@@ -15,4 +15,9 @@
 function get_os_image_path()
 {
 	return '/home/benj/programs/focus_app/public';
+}
+
+function get_other_hostname()
+{
+	return 'http://focuskalamazoo.org';
 }
