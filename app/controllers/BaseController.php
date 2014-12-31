@@ -7,6 +7,12 @@ class BaseController extends Controller {
 	 *
 	 * @return void
 	 */
+	
+	function get_other_server_path()
+	{
+		return '/home/benj/programs/focus_app/public';
+	}
+	
 	protected function setupLayout()
 	{
 		if ( ! is_null($this->layout))

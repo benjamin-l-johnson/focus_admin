@@ -75,7 +75,7 @@ class AdminEventController extends BaseController {
     			if($validator->passes())
     			{	        		
 	        		
-	        		$destinationPath = public_path()."/images/$dir/";
+	        		$destinationPath = get_os_image_path()."/images/$dir/";
 			        
 			        $newFileName =  Str::random(12);;
 			        
@@ -148,7 +148,7 @@ class AdminEventController extends BaseController {
 		//		
 
 		$events = Vent::find($id);
-		$images_path = public_path().e("/$events->images_path");
+		$images_path = get_os_image_path().e("/$events->images_path");
 
 		//get all of the base names of the files
 		$files = array_map('basename', File::files($images_path));
@@ -240,7 +240,7 @@ class AdminEventController extends BaseController {
     			if($validator->passes()){
 
 	        		//create a final path
-	        		$destinationPath = public_path().'/'.$vent->images_path;
+	        		$destinationPath = get_os_image_path().'/'.$vent->images_path;
 			        $newFileName = Str::random(12);
 			        $upload_success = $file->move($destinationPath, $newFileName);
 			    }

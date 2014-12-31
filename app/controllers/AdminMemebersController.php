@@ -71,7 +71,7 @@ class AdminMemebersController extends BaseController {
 
 	        		$fid = Str::random(12);
 	        		
-	        		$destinationPath = public_path()."/images/$dir/";
+	        		$destinationPath = get_os_image_path()."/images/$dir/";
 			        $newFileName = "$fid";
 			        $upload_success = $file->move($destinationPath, $newFileName);
 			    }
@@ -137,7 +137,7 @@ class AdminMemebersController extends BaseController {
 		//		
 
 		$members = Member::find($id);
-		$images_path = public_path().e("/$members->images_path");
+		$images_path = get_os_image_path().e("/$members->images_path");
 
 		//get all of the base names of the files
 		$files = array_map('basename', File::files($images_path));
@@ -209,7 +209,7 @@ class AdminMemebersController extends BaseController {
 
 	        		$fid = Str::random(12);
 	        		
-	        		$destinationPath = public_path()."/images/$dir/";
+	        		$destinationPath = get_os_image_path()."/images/$dir/";
 			        $newFileName = "$fid";
 			        $upload_success = $file->move($destinationPath, $newFileName);
 			    }
