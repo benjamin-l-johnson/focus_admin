@@ -1,0 +1,58 @@
+/*.modal.fade{
+	background: green;
+	opacity: 0.5;
+}*/
+
+/*.modal-backdrop {
+
+	background-color: green;
+	background-image: url('../images/member10/1.jpg');
+
+}*/
+.modal-wrapper {
+height: 525px;
+width: 525px;
+overflow: hidden;
+
+color: inherit;
+text-transform: none;
+background-image: initial;
+background-color: rgb(0, 0, 0);
+opacity: .75;
+}
+
+.modal-content {
+	padding:9px 15px;
+    /*background: url('../images/member4/1.jpg');*/
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    opacity:.95;
+      position: relative;
+  -webkit-background-clip: padding-box;
+          background-clip: padding-box;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 6px;
+  outline: 0;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+          box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+  background-color: #0480be;
+  color: #FFF;
+  /*background-image: url('../images/member10/1.jpg');*/;
+}
+/*.modal-body {
+  background-color: #fff;
+  background-image: url('../images/member10/1.jpg');
+  opacity: .5;
+}*/
+/*.modal-header {
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #0480be;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+ }*/
