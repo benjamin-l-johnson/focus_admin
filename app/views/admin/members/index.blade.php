@@ -91,7 +91,7 @@ ol.example tr.placeholder:before {
                       </thead>
                       <tbody>
                           @foreach($members as $member)
-                          <tr>
+                          <tr id="{{$member->id}}" name="{{$member->id}}">
                               <td>{{{$member->id}}}</td>
                               <td>{{{$member->name}}}</td>
                               <td>{{{$member->email}}}</td>
