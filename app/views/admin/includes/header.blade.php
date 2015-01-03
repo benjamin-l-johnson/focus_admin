@@ -9,7 +9,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>Focus Kzoo</title>
+		<title>FOCUS Kalamazoo</title>
 		@section('head')
 		{{ HTML::style('css/bootstrap.css') }}
 		{{ HTML::style('css/modern-business.css') }}
@@ -141,11 +141,29 @@
 		<!-- Makes restful javascript simple-->
 		{{ HTML::script('js/rails.js') }}
 
+		<!---->
+		{{ HTML::script('js/jquery-sortable.js') }}
+		
 		<!-- Script to Activate the Carousel -->
 		<script>
 			$('.carousel').carousel({
 				interval: 5000 //changes the speed
 			})
+
+			$('.sorted_table').sortable({
+			  containerSelector: 'table',
+			  itemPath: '> tbody',
+			  itemSelector: 'tr',
+			  placeholder: '<tr class="placeholder"/>',
+			  onDrop: function ($item, container, _super, event) {
+				  $item.removeClass("dragged").removeAttr("style")
+				  $("body").removeClass("dragging")
+				  //console.log("B he") add callback in here
+
+				}
+		})
+
+		
 		</script>
 	</body>
 

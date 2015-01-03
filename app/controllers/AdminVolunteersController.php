@@ -99,9 +99,9 @@ class AdminVolunteersController extends BaseController {
 			{
 			
 				$vol = new Volunteer;
-				$vol->name      		= Input::get('name');
-				$vol->email 			= Input::get('email');
-				$vol->rank 				= Input::get('rank');			
+				$vol->name      		= e(Input::get('name'));
+				$vol->email 			= e(Input::get('email'));
+				$vol->rank 				= e(Input::get('rank'));			
 				$vol->photo_path	= "images/$dir/$newFileName";
 				$vol->save();
 
@@ -238,9 +238,9 @@ class AdminVolunteersController extends BaseController {
 			{
 			
 				// store
-				$vol->name      		= Input::get('name');
-				$vol->email 			= Input::get('email');
-				$vol->rank 				= Input::get('rank');	
+				$vol->name      		= e(Input::get('name'));
+				$vol->email 			= e(Input::get('email'));
+				$vol->rank 				= e(Input::get('rank'));	
 				$vol->photo_path	= "images/$dir/$newFileName";
 				$vol->save();
 
@@ -259,9 +259,9 @@ class AdminVolunteersController extends BaseController {
 		}
 		else
 		{
-			$vol->name      		= Input::get('name');
-			$vol->email 			= Input::get('email');
-			$vol->rank 				= Input::get('rank');
+			$vol->name      		= e(Input::get('name'));
+			$vol->email 			= e(Input::get('email'));
+			$vol->rank 				= e(Input::get('rank'));
 			$vol->save();
 
 			//Now that it has been created, sync the list

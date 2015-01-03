@@ -1,7 +1,26 @@
 @extends('admin.includes.header')
 
 @section('content')
+<style type="text/css">
+  body.dragging, body.dragging * {
+  cursor: move !important;
+}
 
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+ol.example tr.placeholder {
+  position: relative;
+  /** More li styles **/
+}
+ol.example tr.placeholder:before {
+  position: absolute;
+  /** Define arrowhead **/
+}
+</style>
 <div class="container">
 
       <!--Pageheading-->
@@ -50,7 +69,7 @@
               </div>
               <div class="panel-body">
                 <div class="table-responsive">
-                  <table class="table table-hover">
+                  <table class="table table-hover sorted_table">
 
                     <a href="{{ URL::route('admin.members.create') }}"
                       class="btn btn-success center-block"><i class="fa fa-plus fa-fw fa-lg"></i> Create 
@@ -104,5 +123,4 @@
   </div>
   {{$members->links()}}
   <hr>
-    
 @stop

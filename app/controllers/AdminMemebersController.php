@@ -87,14 +87,14 @@ class AdminMemebersController extends BaseController {
 			
 				// store
 				$memb = new Member;
-				$memb->name      		= Input::get('name');
-				$memb->job_title   		= Input::get('jobTitle');
-				$memb->about 			= Input::get('about');
-				$memb->email 			= Input::get('email');
-				$memb->password 		= Hash::make(Input::get('password'));
-				$memb->linkedin			= Input::get('linkedin');
-				$memb->twitter			= Input::get('twitter');
-				$memb->facebook			= Input::get('facebook');				
+				$memb->name      		= e(Input::get('name'));
+				$memb->job_title   		= e(Input::get('jobTitle'));
+				$memb->about 			= e(Input::get('about'));
+				$memb->email 			= e(Input::get('email'));
+				$memb->password 		= Hash::make(e(Input::get('password')));
+				$memb->linkedin			= e(Input::get('linkedin'));
+				$memb->twitter			= e(Input::get('twitter'));
+				$memb->facebook			= e(Input::get('facebook'));				
 				$memb->photo_path	= "images/$dir/$newFileName";
 				$memb->save();
 				
@@ -227,14 +227,14 @@ class AdminMemebersController extends BaseController {
 			* Password commented out as of now
 			*/
 				// store
-				$memb->name      		= Input::get('name');
-				$memb->job_title   		= Input::get('jobTitle');
-				$memb->about 			= Input::get('about');
-				//$memb->email 			= Input::get('email');
-				//$memb->password 		= Hash::make(Input::get('password'));
-				$memb->linkedin			= Input::get('linkedin');
-				$memb->twitter			= Input::get('twitter');
-				$memb->facebook			= Input::get('facebook');				
+				$memb->name      		= e(Input::get('name'));
+				$memb->job_title   		= e(Input::get('jobTitle'));
+				$memb->about 			= e(Input::get('about'));
+				//$memb->email 			= e(Input::get('email'));
+				//$memb->password 		= Hash::make(e(Input::get('password')));
+				$memb->linkedin			= e(Input::get('linkedin'));
+				$memb->twitter			= e(Input::get('twitter'));
+				$memb->facebook			= e(Input::get('facebook'));				
 				$memb->photo_path	= "images/$dir/$newFileName";
 				$memb->save();
 
@@ -259,14 +259,14 @@ class AdminMemebersController extends BaseController {
 		}
 		else
 		{
-			$memb->name      		= Input::get('name');
-			$memb->job_title   		= Input::get('jobTitle');
-			$memb->about 			= Input::get('about');
-			//$memb->email 			= Input::get('email');
-			//$memb->password 		= Hash::make(Input::get('password'));
-			$memb->linkedin			= Input::get('linkedin');
-			$memb->twitter			= Input::get('twitter');
-			$memb->facebook			= Input::get('facebook');	
+			$memb->name      		= e(Input::get('name'));
+			$memb->job_title   		= e(Input::get('jobTitle'));
+			$memb->about 			= e(Input::get('about'));
+			//$memb->email 			= e(Input::get('email'));
+			//$memb->password 		= Hash::make(e(Input::get('password')));
+			$memb->linkedin			= e(Input::get('linkedin'));
+			$memb->twitter			= e(Input::get('twitter'));
+			$memb->facebook			= e(Input::get('facebook'));	
 			$memb->save();
 
 			if(Auth::user()->isAdmin() && Input::get('admin'))

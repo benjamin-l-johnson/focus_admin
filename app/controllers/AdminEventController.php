@@ -107,9 +107,9 @@ class AdminEventController extends BaseController {
 				$vent = new Vent;
 
 				//sync all of them
-				$vent->title      		= Input::get('title');
-				$vent->read_more   		= Input::get('readMore');
-				$vent->content 			= Input::get('content');
+				$vent->title      		= e(Input::get('title'));
+				$vent->read_more   		= e(Input::get('readMore'));
+				$vent->content 			= e(Input::get('content'));
 				$vent->images_path  	= "images/$dir/";
 				$vent->cover_photo_name = $newFileName;
 				$vent->save();
@@ -255,9 +255,9 @@ class AdminEventController extends BaseController {
 			{
 
 				// store it
-				$vent->title      		= Input::get('title');
-				$vent->read_more   		= Input::get('readMore');
-				$vent->content 			= Input::get('content');
+				$vent->title      		= e(Input::get('title'));
+				$vent->read_more   		= e(Input::get('readMore'));
+				$vent->content 			= e(Input::get('content'));
 				$vent->save();
 
 				//sync all of them
@@ -277,9 +277,9 @@ class AdminEventController extends BaseController {
 		else
 		{
 				//store it
-				$vent->title      		= Input::get('title');
-				$vent->read_more   		= Input::get('readMore');
-				$vent->content 			= Input::get('content');
+				$vent->title      		= e(Input::get('title'));
+				$vent->read_more   		= e(Input::get('readMore'));
+				$vent->content 			= e(Input::get('content'));
 				$vent->save();
 
 				//sync all of them

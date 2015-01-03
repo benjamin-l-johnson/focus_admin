@@ -109,9 +109,9 @@ class AdminNonProfitController extends BaseController {
 
 				// sync it
 				
-				$nonProf->name      		= Input::get('name');
-				$nonProf->read_more   		= Input::get('readMore');
-				$nonProf->content 			= Input::get('content');
+				$nonProf->name      		= e(Input::get('name'));
+				$nonProf->read_more   		= e(Input::get('readMore'));
+				$nonProf->content 			= e(Input::get('content'));
 				$nonProf->images_path  	= "images/$dir/";
 				$nonProf->cover_photo_name = $newFileName;
 				$nonProf->save();
@@ -247,9 +247,9 @@ class AdminNonProfitController extends BaseController {
 			if( $upload_success )
 			{
 				// store it
-				$nonProf->name      		= Input::get('name');
-				$nonProf->read_more   		= Input::get('readMore');
-				$nonProf->content 			= Input::get('content');
+				$nonProf->name      		= e(Input::get('name'));
+				$nonProf->read_more   		= e(Input::get('readMore'));
+				$nonProf->content 			= e(Input::get('content'));
 				$nonProf->save();
 
 				// sync it
@@ -268,9 +268,9 @@ class AdminNonProfitController extends BaseController {
 		else
 		{				
 				//store it
-				$nonProf->name      		= Input::get('name');
-				$nonProf->read_more   		= Input::get('readMore');
-				$nonProf->content 			= Input::get('content');
+				$nonProf->name      		= e(Input::get('name'));
+				$nonProf->read_more   		= e(Input::get('readMore'));
+				$nonProf->content 			= e(Input::get('content'));
 				$nonProf->save();
 				
 				// sync it

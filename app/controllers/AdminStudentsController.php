@@ -102,9 +102,9 @@ class AdminStudentsController extends BaseController {
 
 				// store
 				$stu = new Student;
-				$stu->name      		= Input::get('name');
-				$stu->read_more   		= Input::get('readMore');
-				$stu->content 			= Input::get('content');
+				$stu->name      		= e(Input::get('name'));
+				$stu->read_more   		= e(Input::get('readMore'));
+				$stu->content 			= e(Input::get('content'));
 				$stu->images_path  	= "images/$dir/";
 				$stu->cover_photo_name = $newFileName;
 				$stu->save();
@@ -244,9 +244,9 @@ class AdminStudentsController extends BaseController {
 			
 
 				$stu->vents()->sync($ventsList);
-				$stu->name      		= Input::get('name');
-				$stu->read_more   		= Input::get('readMore');
-				$stu->content 			= Input::get('content');
+				$stu->name      		= e(Input::get('name'));
+				$stu->read_more   		= e(Input::get('readMore'));
+				$stu->content 			= e(Input::get('content'));
 				$stu->save();
 
 				Session::flash('message', "Successfully edited student group #$stu->id");
@@ -262,9 +262,9 @@ class AdminStudentsController extends BaseController {
 		else
 		{
 				$stu->vents()->sync($ventsList);
-				$stu->name      		= Input::get('name');
-				$stu->read_more   		= Input::get('readMore');
-				$stu->content 			= Input::get('content');
+				$stu->name      		= e(Input::get('name'));
+				$stu->read_more   		= e(Input::get('readMore'));
+				$stu->content 			= e(Input::get('content'));
 				$stu->save();
 
 				Session::flash('message', "Successfully edited student group #$id!");
