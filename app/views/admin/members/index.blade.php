@@ -146,7 +146,10 @@ $(function() {
           var jsonString = {data:data[0]}
           //console.log(jsonString)
           console.log(jsonString)
-          $.post('/admin/members/order',jsonString,function()
+
+          var pathname = window.location.pathname;
+
+          $.post(pathname.concat('/order'),jsonString,function()
             {
               location.reload();
             });
