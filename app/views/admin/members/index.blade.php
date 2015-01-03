@@ -1,6 +1,8 @@
 @extends('admin.includes.header')
 
 @section('content')
+
+<div class="container">
 <style type="text/css">
   body.dragging, body.dragging * {
   cursor: move !important;
@@ -11,18 +13,7 @@
   opacity: 0.5;
   z-index: 2000;
 }
-
-ol.example tr.placeholder {
-  position: relative;
-  /** More li styles **/
-}
-ol.example tr.placeholder:before {
-  position: absolute;
-  /** Define arrowhead **/
-}
 </style>
-<div class="container">
-
       <!--Pageheading-->
   <div class="row">
       <div class="col-lg-12">
@@ -74,10 +65,12 @@ ol.example tr.placeholder:before {
                     <a href="{{ URL::route('admin.members.create') }}"
                       class="btn btn-success center-block"><i class="fa fa-plus fa-fw fa-lg"></i> Create 
                     </a>
+
+
                       
                       <thead>
                           <tr>
-                              <th>id</th>
+                              <th>Order</th>
                               <th>Name</th>
                               <th>Email</th>
                               <th>View</th>
@@ -91,8 +84,8 @@ ol.example tr.placeholder:before {
                       </thead>
                       <tbody>
                           @foreach($members as $member)
-                          <tr id="{{$member->id}}" name="{{$member->id}}">
-                              <td>{{{$member->id}}}</td>
+                          <tr data-id="{{$member->id}}" data-name="{{$member->name}}" data-order="{{$member->order}}">
+                              <td>{{{$member->order}}}</td>
                               <td>{{{$member->name}}}</td>
                               <td>{{{$member->email}}}</td>
                               <td>
@@ -121,6 +114,45 @@ ol.example tr.placeholder:before {
        </div>
       </div>
   </div>
+<hr>
+                    <a href="#"
+                      class="btn btn-primary center-block" id="save_order"><i class="fa fa-plus fa-fw fa-lg"></i>Save Order </a>
+
   {{$members->links()}}
   <hr>
+
+
+@section('scripts')
+<script type="text/javascript">
+var group = $('.sorted_table').sortable({
+        containerSelector: 'table',
+        itemPath: '> tbody',
+        itemSelector: 'tr',
+        nested: 'false',
+        placeholder: '<tr class="placeholder"/>',
+        onDrop: function ($item, container, _super, event) {
+          $item.removeClass("dragged").removeAttr("style")
+          $("body").removeClass("dragging")
+          
+       }
+    })
+
+/**/
+$(function() {
+      $("#save_order").click( function(e)
+        {
+          e.preventDefault();
+          var data = group.sortable("serialize").get();
+          var jsonString = {data:data[0]}
+          //console.log(jsonString)
+          console.log(jsonString)
+          $.post('/admin/members/order',jsonString,function()
+            {
+              location.reload();
+            });
+        }
+      );
+});
+
+</script>
 @stop

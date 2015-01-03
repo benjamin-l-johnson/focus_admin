@@ -47,6 +47,9 @@ Route::group(array('before'=>'auth'),function()
 
 	Route::resource('/admin/volunteers','AdminVolunteersController');
 
+
+	Route::post('/admin/members/order', array('as'=>'members.order','uses' => 'AdminMemebersController@saveOrder'));
+
 });
 
 Route::controller('password', 'RemindersController');

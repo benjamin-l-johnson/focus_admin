@@ -150,34 +150,12 @@
 				interval: 5000 //changes the speed
 			})
 
-			var group = $('.sorted_table').sortable({
-			  containerSelector: 'table',
-			  itemPath: '> tbody',
-			  itemSelector: 'tr',
-			  nested: 'false',
-			  placeholder: '<tr class="placeholder"/>',
-
-			  serialize: function (parent, children, isContainer) {
-				    return isContainer ? children.join() : parent.attr("id")
-  				},
-			  onDrop: function ($item, container, _super, event) {
-				  $item.removeClass("dragged").removeAttr("style")
-				  $("body").removeClass("dragging")
-				  //console.log("B he") add callback in here
-				  
-				var data = group.sortable("serialize").get();
-
-    			var jsonString = JSON.stringify(data);
-
-				console.log(jsonString)
-
-				
-
-				}
-		})
-
 		
 		</script>
+		@section('scripts')
+
+		@show
+
 	</body>
 
 </html>

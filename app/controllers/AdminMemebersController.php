@@ -5,7 +5,7 @@ class AdminMemebersController extends BaseController {
 	public function index()
 	{
 		//
-		$members = Member::orderBy('id')->paginate(20);
+		$members = Member::orderBy('order')->paginate(20);
 		
 		
 		$data = array(
@@ -304,6 +304,18 @@ class AdminMemebersController extends BaseController {
 				return Redirect::route('admin.members.index')->withErrors([$error]);
 		}
 
+	}
+
+	public function saveOrder()
+	{
+		$input = Input::json();
+		$order = 0;
+		foreach (Input::get("data") as $something) {
+			$memb = Member::find($something["id"]);
+			$memb->order = $order++;
+			$memb->save();
+		}
+		return Response::json(array("Ok" => "Ok"));
 	}
 
 
