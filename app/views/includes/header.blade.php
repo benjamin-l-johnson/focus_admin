@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Focus Kzoo</title>
+    <title>Focus Kalamazoo</title>
     @section('head')
     {{ HTML::style('css/bootstrap.css') }}
     {{ HTML::style('css/modern-business.css') }}
@@ -61,7 +61,7 @@
     <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; FOCUS KZOO 2014</p>
+                    <p>Copyright &copy; FOCUS Kalamazoo 2014</p>
                 </div>
             </div>
         </footer>

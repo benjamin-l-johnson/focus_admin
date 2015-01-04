@@ -137,18 +137,19 @@ var group = $('.sorted_table').sortable({
        }
     })
 
-/**/
+/*When we click the save order button, it will run our function!*/
 $(function() {
       $("#save_order").click( function(e)
         {
           e.preventDefault();
           var data = group.sortable("serialize").get();
           var jsonString = {data:data[0]}
-          //console.log(jsonString)
+          
           console.log(jsonString)
 
           var pathname = window.location.pathname;
 
+          //post the jsonString to the current route/order, on success refresh the page
           $.post(pathname.concat('/order'),jsonString,function()
             {
               location.reload();

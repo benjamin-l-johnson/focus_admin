@@ -94,7 +94,8 @@ class AdminMemebersController extends BaseController {
 				$memb->password 		= Hash::make(e(Input::get('password')));
 				$memb->linkedin			= e(Input::get('linkedin'));
 				$memb->twitter			= e(Input::get('twitter'));
-				$memb->facebook			= e(Input::get('facebook'));				
+				$memb->facebook			= e(Input::get('facebook'));
+				$memb->instagram		= e(Input::get('instagram'));				
 				$memb->photo_path	= "images/$dir/$newFileName";
 				$memb->save();
 				
@@ -234,7 +235,8 @@ class AdminMemebersController extends BaseController {
 				//$memb->password 		= Hash::make(e(Input::get('password')));
 				$memb->linkedin			= e(Input::get('linkedin'));
 				$memb->twitter			= e(Input::get('twitter'));
-				$memb->facebook			= e(Input::get('facebook'));				
+				$memb->facebook			= e(Input::get('facebook'));
+				$memb->instagram		= e(Input::get('instagram'));					
 				$memb->photo_path	= "images/$dir/$newFileName";
 				$memb->save();
 
@@ -267,6 +269,7 @@ class AdminMemebersController extends BaseController {
 			$memb->linkedin			= e(Input::get('linkedin'));
 			$memb->twitter			= e(Input::get('twitter'));
 			$memb->facebook			= e(Input::get('facebook'));	
+			$memb->instagram		= e(Input::get('instagram'));	
 			$memb->save();
 
 			if(Auth::user()->isAdmin() && Input::get('admin'))

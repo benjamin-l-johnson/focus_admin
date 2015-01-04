@@ -65,9 +65,14 @@
                 {{ Form::BStextIn('twitter', 'Enter Twitter url here',e($memb->twitter)) }}
             </div>
 
+            <div class="form-group">    
+                {{ Form::label('instagram', 'Instagram:', array('class' => 'awesome')) }}
+                {{ Form::BStextIn('instagram', 'Enter Instagram url here',e($memb->instagram)) }}
+            </div>
+
             <div class="form-group">
                 {{ Form::label('about', 'About You:', array('class' => 'awesome')) }}
-                {{ Form::BStextArea('about',10, 'Put some information about your self here',e($memb->about)) }}
+                {{ Form::BStextArea('about',10, 'Put some information about your self here, it will show up when you click on your picture',e($memb->about)) }}
             </div>
 
             {{--Give them the ability to make admin users--}}
