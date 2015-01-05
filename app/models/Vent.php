@@ -23,7 +23,7 @@ class Vent extends Eloquent {
    	public function setDateAttribute($value)
     {
     	//when we save the date attribute format it
-        $this->attributes['date'] = Carbon::createFromFormat('d/m/Y', $value);
+        $this->attributes['date'] = Carbon::createFromFormat('m/d/Y', $value);
     }
 
     public function getDateAttribute($value)
@@ -32,6 +32,6 @@ class Vent extends Eloquent {
     	//when we save the date attribute format it
         //var_dump(date_parse_from_format('d/m/Y', $value));
 
-        return date("d/m/Y", strtotime($value));
+        return date("m/d/Y", strtotime($value));
     }
 }
