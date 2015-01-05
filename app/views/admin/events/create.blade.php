@@ -56,7 +56,18 @@
                 {{ Form::label('content', 'Content:', array('class' => 'awesome')) }}
                 {{ Form::BStextArea('content',10, 'Make this as long as you wish!',Input::old('content')) }}
             </div>
-            
+
+
+            <div class="form-group">
+                <div class="form-inline">  
+                    {{ Form::label('date', 'Date:', array('class' => 'awesome')) }}
+                    <div class="input-group date">
+                        {{ Form::BSdate('date')}}
+                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group">
                 {{ Form::label('volunteers', 'Volunteers that helped (check all that apply):') }}
                 @foreach($volunteers as $volunteer)
@@ -83,4 +94,9 @@
         {{ Form::close() }}
         </form>
 
+@section('scripts')
+<script type="text/javascript">
+$('.input-group.date').datepicker()
+
+</script>
 @stop

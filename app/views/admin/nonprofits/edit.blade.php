@@ -59,6 +59,13 @@
                 {{ Form::BStextArea('content',10, 'Make this as long as you wish!',$nonprof->content) }}
             </div>
             
+
+
+            <div class="form-group">    
+                {{ Form::label('rank', 'Rank:', array('class' => 'awesome')) }}
+                {{ Form::BSnumIn('rank', 'Enter rank here (Higest number will be displayed first)',e($nonprof->rank)) }}
+            </div>
+            
             <div class="form-group">
             
                 {{ Form::label('Events', 'Events this group participated in:') }}

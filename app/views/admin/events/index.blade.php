@@ -47,7 +47,8 @@
                     </a>
                       <thead>
                           <tr>
-                              <th>id</th>
+                              
+                              <th>Date</th>
                               <th>Title</th>
                               <th>View</th>
                               <th>Edit</th>
@@ -57,7 +58,8 @@
                       <tbody>
                           @foreach($events as $event)
                           <tr>
-                              <td>{{{$event->id}}}</td>
+                              
+                              <td>{{{$event->date}}}</td>
                               <td>{{{$event->title}}}</td>
 
                               <td>

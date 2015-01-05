@@ -62,11 +62,10 @@
             </div>
             
             <div class="form-group">    
-                {{ Form::label('detail1', 'Detail 1:') }}
-                {{ Form::BStextIn('detail1', 'Enter a detail about the group',Input::old('content')) }}
+                {{ Form::label('rank', 'Rank:', array('class' => 'awesome')) }}
+                {{ Form::BSnumIn('rank', 'Enter rank here (Higest number will be displayed first)',Input::old('content')) }}
             </div>
 
-            
             <div class="form-group">
             
             {{ Form::label('Events', 'Events this group participated in:') }}

@@ -56,6 +56,16 @@
             </div>
 
             <div class="form-group">
+                <div class="form-inline">  
+                    {{ Form::label('date', 'Date:', array('class' => 'awesome')) }}
+                    <div class="input-group date">
+                        {{ Form::BSdate('date',$vent->date)}}
+                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
             {{ Form::label('volunteers', 'Volunteers that helped (check all that apply):') }}
             @foreach($volunteers as $volunteer)
 
@@ -79,5 +89,11 @@
             </div>
         {{ Form::close() }}
         </form>
+@section('scripts')
+<script type="text/javascript">
+$('.input-group.date').datepicker({
+    startDate: '-3d',
+})
 
+</script>
 @stop

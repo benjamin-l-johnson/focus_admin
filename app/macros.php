@@ -30,5 +30,10 @@ Form::macro('BSnumIn', function($name,$place,$val='',$class='') {
 
 Form::macro('BSpass', function($name,$place,$class='') {
 	
-	return '<input name="'.$name.'"type="password" class="form-control'.$class.'" id="'.$name.'" placeholder="'.$place.'">';
+	return '<input name="'.$name.'"type="password" class="form-control '.$class.'" id="'.$name.'" placeholder="'.$place.'">';
+});
+
+Form::macro('BSdate', function($name,$val='',$class='') {
+
+	return '<input data-provide="datepicker" name="'.$name.'" value="'.$val.'" class="form-control '.$class.'" id="'.$name.'">';
 });

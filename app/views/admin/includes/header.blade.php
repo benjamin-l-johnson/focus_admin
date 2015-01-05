@@ -9,19 +9,12 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>FOCUS Kalamazoo</title>
+		<title>Admin Portal, FOCUS Kalamazoo</title>
 		@section('head')
 		{{ HTML::style('css/bootstrap.css') }}
 		{{ HTML::style('css/modern-business.css') }}
 		{{ HTML::style('font-awesome-4.2.0/css/font-awesome.min.css') }}
-		<!-- Bootstrap Core CSS 
-		<link href="css/bootstrap.css" rel="stylesheet">  -->
-
-		<!-- Custom CSS 
-		<link href="css/modern-business.css" rel="stylesheet">
-		-->
-		<!-- Custom Fonts 
-		<link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+		{{ HTML::style('css/datepicker3.css') }}
 
 		@show
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -144,6 +137,9 @@
 		<!---->
 		{{ HTML::script('js/jquery-sortable.js') }}
 		
+		{{ HTML::script('js/bootstrap-datepicker.js') }}
+
+
 		<!-- Script to Activate the Carousel -->
 		<script>
 			$('.carousel').carousel({

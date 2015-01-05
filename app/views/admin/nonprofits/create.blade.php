@@ -57,6 +57,12 @@
                 {{ Form::BStextArea('content',10, 'Make this as long as you wish!',Input::old('content')) }}
             </div>
             
+
+            <div class="form-group">    
+                {{ Form::label('rank', 'Rank:', array('class' => 'awesome')) }}
+                {{ Form::BSnumIn('rank', 'Enter rank here (Higest number will be displayed first)',Input::old('content')) }}
+            </div>
+            
             <div class="form-group">
             
             {{ Form::label('Events', 'Events this group participated in:') }}

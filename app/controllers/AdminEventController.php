@@ -8,7 +8,7 @@ class AdminEventController extends BaseController {
 	public function index()
 	{
 		//
-		$events = Vent::orderBy('id')->paginate(5);
+		$events = Vent::orderBy('date')->paginate(5);
 		
 		
 		//$files = File::files($public_path);
@@ -43,7 +43,8 @@ class AdminEventController extends BaseController {
 		$rules = array(
 			'title'       => 'required',
 			'content'      => 'required',
-			'readMore' => 'required'
+			'readMore' => 'required',
+			'date' => 'date_format:"m/d/Y"'
 		);
 		
 		//Vaildating input from the post
@@ -110,6 +111,7 @@ class AdminEventController extends BaseController {
 				$vent->title      		= e(Input::get('title'));
 				$vent->read_more   		= e(Input::get('readMore'));
 				$vent->content 			= e(Input::get('content'));
+				$vent->date 			= e(Input::get('date'));
 				$vent->images_path  	= "images/$dir/";
 				$vent->cover_photo_name = $newFileName;
 				$vent->save();
@@ -187,7 +189,8 @@ class AdminEventController extends BaseController {
 		$rules = array(
 			'title'       => 'required',
 			'content'      => 'required',
-			'readMore' => 'required|Max:120'
+			'readMore' => 'required|Max:120',
+			'date' => 'date_format:"m/d/Y"'
 		);
 		
 		//Vaildating input from the post
@@ -258,6 +261,7 @@ class AdminEventController extends BaseController {
 				$vent->title      		= e(Input::get('title'));
 				$vent->read_more   		= e(Input::get('readMore'));
 				$vent->content 			= e(Input::get('content'));
+				$vent->date 			= e(Input::get('date'));
 				$vent->save();
 
 				//sync all of them
@@ -280,6 +284,7 @@ class AdminEventController extends BaseController {
 				$vent->title      		= e(Input::get('title'));
 				$vent->read_more   		= e(Input::get('readMore'));
 				$vent->content 			= e(Input::get('content'));
+				$vent->date 			= e(Input::get('date'));
 				$vent->save();
 
 				//sync all of them
@@ -301,6 +306,7 @@ class AdminEventController extends BaseController {
 	{
 		//
 		$vent = Vent::find($id);
+
 		$vent->delete();
 		Session::flash('message', "Successfully deleted event #$id!");
 				return Redirect::route('admin.events.index');
