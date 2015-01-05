@@ -35,5 +35,5 @@ Form::macro('BSpass', function($name,$place,$class='') {
 
 Form::macro('BSdate', function($name,$val='',$class='') {
 
-	return '<input data-provide="datepicker" name="'.$name.'" value="'.$val.'" class="form-control '.$class.'" id="'.$name.'">';
+	return '<input  name="'.$name.'" value="'.$val.'" class="form-control '.$class.'" id="'.$name.'">';
 });

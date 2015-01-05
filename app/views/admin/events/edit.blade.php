@@ -66,7 +66,7 @@
             </div>
 
             <div class="form-group">
-            {{ Form::label('volunteers', 'Volunteers that helped (check all that apply):') }}
+            {{ Form::label('volunteers', 'Groups that helped (check all that apply):') }}
             @foreach($volunteers as $volunteer)
 
                
@@ -91,9 +91,8 @@
         </form>
 @section('scripts')
 <script type="text/javascript">
-$('.input-group.date').datepicker({
-    startDate: '-3d',
-})
+$.fn.datepicker.defaults.startDate = "-3d";
+$('.input-group.date').datepicker();
 
 </script>
 @stop

@@ -8,7 +8,7 @@ class AdminEventController extends BaseController {
 	public function index()
 	{
 		//
-		$events = Vent::orderBy('date')->paginate(5);
+		$events = Vent::orderBy('date','desc')->paginate(5);
 		
 		
 		//$files = File::files($public_path);
