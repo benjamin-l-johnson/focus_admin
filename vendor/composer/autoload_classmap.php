@@ -10,6 +10,8 @@ return array(
     'AddEmailToVolunteersTable' => $baseDir . '/app/database/migrations/2014_12_17_225254_add_email_to_volunteers_table.php',
     'AddInstagramToMembersTable' => $baseDir . '/app/database/migrations/2015_01_03_224921_add_instagram_to_members_table.php',
     'AddOrderToMembersTable' => $baseDir . '/app/database/migrations/2015_01_03_224835_add_order_to_members_table.php',
+    'AddRankToNonprofitsTable' => $baseDir . '/app/database/migrations/2015_01_06_213640_add_rank_to_nonprofits_table.php',
+    'AddRankToStudentsTable' => $baseDir . '/app/database/migrations/2015_01_06_213604_add_rank_to_students_table.php',
     'Boris\\Boris' => $vendorDir . '/d11wtq/boris/lib/Boris/Boris.php',
     'Boris\\CLIOptionsHandler' => $vendorDir . '/d11wtq/boris/lib/Boris/CLIOptionsHandler.php',
     'Boris\\ColoredInspector' => $vendorDir . '/d11wtq/boris/lib/Boris/ColoredInspector.php',

@@ -8,7 +8,7 @@ class AdminStudentsController extends BaseController {
 	public function index()
 	{
 		//
-		$stu = Student::orderBy('id')->paginate(5);
+		$stu = Student::orderBy('rank')->paginate(5);
 		
 		
 		//$files = File::files($public_path);
@@ -43,6 +43,7 @@ class AdminStudentsController extends BaseController {
 		$rules = array(
 			'name'       => 'required',
 			'content'      => 'required',
+			'rank' => 'numeric',
 			'readMore' => 'required'
 		);
 		
@@ -105,6 +106,7 @@ class AdminStudentsController extends BaseController {
 				$stu->name      		= e(Input::get('name'));
 				$stu->read_more   		= e(Input::get('readMore'));
 				$stu->content 			= e(Input::get('content'));
+				$stu->rank 				= e(Input::get('rank'));
 				$stu->images_path  	= "images/$dir/";
 				$stu->cover_photo_name = $newFileName;
 				$stu->save();
@@ -181,6 +183,7 @@ class AdminStudentsController extends BaseController {
 		$rules = array(
 			'name'       => 'required',
 			'content'      => 'required',
+			'rank' => 'numeric',
 			'readMore' => 'required|Max:120'
 		);
 		
@@ -247,6 +250,7 @@ class AdminStudentsController extends BaseController {
 				$stu->name      		= e(Input::get('name'));
 				$stu->read_more   		= e(Input::get('readMore'));
 				$stu->content 			= e(Input::get('content'));
+				$stu->rank 				= e(Input::get('rank'));
 				$stu->save();
 
 				Session::flash('message', "Successfully edited student group #$stu->id");
@@ -265,6 +269,7 @@ class AdminStudentsController extends BaseController {
 				$stu->name      		= e(Input::get('name'));
 				$stu->read_more   		= e(Input::get('readMore'));
 				$stu->content 			= e(Input::get('content'));
+				$stu->rank 				= e(Input::get('rank'));
 				$stu->save();
 
 				Session::flash('message', "Successfully edited student group #$id!");

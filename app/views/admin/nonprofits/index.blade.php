@@ -47,7 +47,7 @@
                       
                       <thead>
                           <tr>
-                              <th>id</th>
+                              <th>rank</th>
                               <th>Name</th>
                               <th>View</th>
                               <th>Edit</th>
@@ -57,7 +57,7 @@
                       <tbody>
                           @foreach($nonprofits as $nonProf)
                           <tr>
-                              <td>{{{$nonProf->id}}}</td>
+                              <td>{{{$nonProf->rank}}}</td>
                               <td>{{{$nonProf->name}}}</td>
 
                               <td>

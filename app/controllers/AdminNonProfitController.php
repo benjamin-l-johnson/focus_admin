@@ -8,7 +8,7 @@ class AdminNonProfitController extends BaseController {
 	public function index()
 	{
 		//
-		$nonprofits = Nonprofit::orderBy('id')->paginate(5);
+		$nonprofits = Nonprofit::orderBy('rank')->paginate(5);
 		
 		
 		//$files = File::files($public_path);
@@ -44,6 +44,7 @@ class AdminNonProfitController extends BaseController {
 		$rules = array(
 			'name'       => 'required',
 			'content'      => 'required',
+			'rank' => 'numeric',
 			'readMore' => 'required'
 		);
 		
@@ -112,6 +113,7 @@ class AdminNonProfitController extends BaseController {
 				$nonProf->name      		= e(Input::get('name'));
 				$nonProf->read_more   		= e(Input::get('readMore'));
 				$nonProf->content 			= e(Input::get('content'));
+				$nonProf->rank 				= e(Input::get('rank'));
 				$nonProf->images_path  	= "images/$dir/";
 				$nonProf->cover_photo_name = $newFileName;
 				$nonProf->save();
@@ -186,6 +188,7 @@ class AdminNonProfitController extends BaseController {
 		$rules = array(
 			'name'       => 'required',
 			'content'      => 'required',
+			'rank' => 'numeric',
 			'readMore' => 'required|Max:120'
 		);
 		
@@ -250,6 +253,7 @@ class AdminNonProfitController extends BaseController {
 				$nonProf->name      		= e(Input::get('name'));
 				$nonProf->read_more   		= e(Input::get('readMore'));
 				$nonProf->content 			= e(Input::get('content'));
+				$nonProf->rank 				= e(Input::get('rank'));
 				$nonProf->save();
 
 				// sync it
@@ -271,6 +275,7 @@ class AdminNonProfitController extends BaseController {
 				$nonProf->name      		= e(Input::get('name'));
 				$nonProf->read_more   		= e(Input::get('readMore'));
 				$nonProf->content 			= e(Input::get('content'));
+				$nonProf->rank 				= e(Input::get('rank'));
 				$nonProf->save();
 				
 				// sync it
