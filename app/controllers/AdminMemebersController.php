@@ -5,7 +5,7 @@ class AdminMemebersController extends BaseController {
 	public function index()
 	{
 		//
-		$members = Member::orderBy('order')->paginate(20);
+		$members = Member::orderBy('order')->paginate(50);
 		
 		
 		$data = array(

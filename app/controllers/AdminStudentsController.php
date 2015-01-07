@@ -8,7 +8,7 @@ class AdminStudentsController extends BaseController {
 	public function index()
 	{
 		//
-		$stu = Student::orderBy('rank')->paginate(5);
+		$stu = Student::orderBy('rank','desc')->paginate(10);
 		
 		
 		//$files = File::files($public_path);

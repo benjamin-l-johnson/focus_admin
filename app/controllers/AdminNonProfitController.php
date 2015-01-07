@@ -8,7 +8,7 @@ class AdminNonProfitController extends BaseController {
 	public function index()
 	{
 		//
-		$nonprofits = Nonprofit::orderBy('rank')->paginate(5);
+		$nonprofits = Nonprofit::orderBy('rank')->paginate(10);
 		
 		
 		//$files = File::files($public_path);
