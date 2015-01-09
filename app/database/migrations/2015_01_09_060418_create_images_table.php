@@ -16,8 +16,10 @@ class CreateImagesTable extends Migration {
 		{
 		    $table->increments('id');
 			$table->string('path');
+			$table->string('folder');
+			$table->string('name');
 			$table->integer('imageable_id');
-			$table->string('imagable_type');
+			$table->string('imageable_type');
 			$table->timestamps();
 		});
 	}
@@ -29,10 +31,8 @@ class CreateImagesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('images', function(Blueprint $table)
-		{
-			//
-		});
+
+		Schema::drop('images');	
 	}
 
 }

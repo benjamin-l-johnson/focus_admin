@@ -47,7 +47,7 @@ class AdminEventController extends BaseController {
 			'date' => 'date_format:"m/d/Y"'
 		);
 		
-		//Vaildating input from the post
+		//Validating input from the post
 		$validator = Validator::make(Input::all(), $rules);
 
 		// process the login
@@ -62,12 +62,30 @@ class AdminEventController extends BaseController {
 		if(Input::hasFile('images'))
 		{
 			$files = Input::file('images');
-			$upload_success='';
+			$uploadSuccess;
 			$newFileName;
-			
+			//$images=array();
+
 			$dir = Str::random(12);
 
-			foreach($files as $file) 
+			//validate the image
+			$rules = array(
+       				'file' => 'required|image'
+    				);
+
+			//validate the images
+			$valid = $this->imagesValid($files,$rules);
+
+			//images were not valid return error
+			if(!$valid)
+			{
+
+				$error = 'You can only upload png,gif,jpg, and jpeg';
+				return Redirect::route('admin.events.create')
+					->withErrors([$error])->withInput();
+			}
+
+			/*foreach($files as $file) 
 			{
     			$rules = array(
        				'file' => 'required|image'
@@ -88,50 +106,70 @@ class AdminEventController extends BaseController {
 					return Redirect::route('admin.events.create')
 						->withErrors([$error])->withInput();
 				}
+			}*/
+
+
+			//get number of volunteers
+			$vols = Volunteer::all();
+			$volsList= array();
+			
+			foreach($vols as $vol)
+			{ 
+				//id they selected a volunteer	
+				if(Input::has("vID$vol->id"))
+				{
+					$volsList[] = $vol->id;
+				}
 			}
-			if( $upload_success )
-			{
-				//get number of volunteers
-				$vols = Volunteer::all();
-				$volsList= array();
-				
-				foreach($vols as $vol)
-				{ 
-					//id they selected a volunteer	
-					if(Input::has("vID$vol->id"))
-					{
-						$volsList[] = $vol->id;
-					}
+
+			// store it
+			$vent = new Vent;
+
+			//sync all of them
+			$vent->title      		= e(Input::get('title'));
+			$vent->read_more   		= e(Input::get('readMore'));
+			$vent->content 			= e(Input::get('content'));
+			$vent->date 			= e(Input::get('date'));
+			$vent->images_path  	= "images/$dir/";
+			//$vent->cover_photo_name = $newFileName;
+			$vent->save();
+
+			//Now that it has been saved, sync the list
+			$vent->volunteers()->sync($volsList);
+
+			//save and move images
+			foreach($files as $file) 
+			{        		
+        		
+        		$destinationPath = Config::get('otherapp.images_path')."/images/$dir/";
+		        
+		        $newFileName =  Str::random(12);
+		        
+		        $uploadSuccess = $file->move($destinationPath, $newFileName);
+
+
+		       	if($uploadSuccess==false)
+				{
+					$vent->delete();
+		        	$error = 'Failed to move the file. Contact the sysadmin';
+					return Redirect::route('admin.events.create')
+					->withErrors([$error])->withInput();
 				}
 
-				// store it
-				$vent = new Vent;
+		        //$image = new Image();
 
-				//sync all of them
-				$vent->title      		= e(Input::get('title'));
-				$vent->read_more   		= e(Input::get('readMore'));
-				$vent->content 			= e(Input::get('content'));
-				$vent->date 			= e(Input::get('date'));
-				$vent->images_path  	= "images/$dir/";
-				$vent->cover_photo_name = $newFileName;
-				$vent->save();
+		        $vent->images()->create(array('path'=>"$destinationPath.$newFileName"));
 
-				//Now that it has been saved, sync the list
-				$vent->volunteers()->sync($volsList);
+		    }
+			
 
-				//report success
-				Session::flash('message', 'Successfully created new event!');
-				return Redirect::route('admin.events.index');
-			}
-			else
-			{
-				$error = 'Failed to move the file. Contact the sysadmin';
-				return Redirect::route('admin.events.create')
-					->withErrors([$error])->withInput();
-			}
+
+			//report success
+			Session::flash('message', 'Successfully created new event!');
+			return Redirect::route('admin.events.index');
 		}
 		else
-		{
+		{	//didn't attach photo throw error
 			return Redirect::route('admin.events.create')
 				->withErrors(['No images attachted!'])->withInput();
 		}
@@ -139,6 +177,24 @@ class AdminEventController extends BaseController {
 
 	}
 
+	/**
+	*	A quick function to validate all the images we're passed
+	*	@return bool
+	*/
+	private function imagesValid($files,$rules)
+	{
+		foreach($files as $file) 
+		{
+			$validator = Validator::make(array('file'=> $file), $rules);
+    		
+    		if(!$validator->passes())
+    		{
+    			return false;
+    		}
+		}
+
+		return true;
+	}
 	/**
 	 * Display the specified resource.
 	 *
@@ -193,7 +249,7 @@ class AdminEventController extends BaseController {
 			'date' => 'date_format:"m/d/Y"'
 		);
 		
-		//Vaildating input from the post
+		//Validating input from the post
 		$validator = Validator::make(Input::all(), $rules);
 
 		// process the input
