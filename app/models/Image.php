@@ -3,7 +3,7 @@
 
 class Image extends Eloquent {
  
-  protected $fillable = array('path');
+  protected $fillable = array('path','name','folder');
   public function imageable()
   {
     return $this->morphTo();

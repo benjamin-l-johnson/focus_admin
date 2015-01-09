@@ -44,7 +44,7 @@ class AdminEventController extends BaseController {
 			'title'       => 'required',
 			'content'      => 'required',
 			'readMore' => 'required',
-			'date' => 'date_format:"m/d/Y"'
+			'date' => 'required|date_format:"m/d/Y"'
 		);
 		
 		//Validating input from the post
@@ -64,7 +64,6 @@ class AdminEventController extends BaseController {
 			$files = Input::file('images');
 			$uploadSuccess;
 			$newFileName;
-			//$images=array();
 
 			$dir = Str::random(12);
 
@@ -85,29 +84,6 @@ class AdminEventController extends BaseController {
 					->withErrors([$error])->withInput();
 			}
 
-			/*foreach($files as $file) 
-			{
-    			$rules = array(
-       				'file' => 'required|image'
-    				);
-		    	$validator = Validator::make(array('file'=> $file), $rules);
-    			if($validator->passes())
-    			{	        		
-	        		
-	        		$destinationPath = Config::get('otherapp.images_path')."/images/$dir/";
-			        
-			        $newFileName =  Str::random(12);;
-			        
-			        $upload_success = $file->move($destinationPath, $newFileName);
-			    }
-			    else
-				{
-					$error = 'You can only upload png,gif,jpg, and jpeg';
-					return Redirect::route('admin.events.create')
-						->withErrors([$error])->withInput();
-				}
-			}*/
-
 
 			//get number of volunteers
 			$vols = Volunteer::all();
@@ -125,17 +101,17 @@ class AdminEventController extends BaseController {
 			// store it
 			$vent = new Vent;
 
-			//sync all of them
 			$vent->title      		= e(Input::get('title'));
 			$vent->read_more   		= e(Input::get('readMore'));
 			$vent->content 			= e(Input::get('content'));
 			$vent->date 			= e(Input::get('date'));
 			$vent->images_path  	= "images/$dir/";
-			//$vent->cover_photo_name = $newFileName;
-			$vent->save();
+
 
 			//Now that it has been saved, sync the list
 			$vent->volunteers()->sync($volsList);
+
+			$images = array();
 
 			//save and move images
 			foreach($files as $file) 
@@ -150,20 +126,25 @@ class AdminEventController extends BaseController {
 
 		       	if($uploadSuccess==false)
 				{
-					$vent->delete();
 		        	$error = 'Failed to move the file. Contact the sysadmin';
 					return Redirect::route('admin.events.create')
 					->withErrors([$error])->withInput();
 				}
 
-		        //$image = new Image();
 
-		        $vent->images()->create(array('path'=>"$destinationPath.$newFileName"));
+		        $images[] = new Image(array(
+		        						'path'=>$destinationPath.$newFileName,
+		        						'name'=>$newFileName,
+		        						'folder'=>$destinationPath
+		        						)
+
+		        	);
 
 		    }
 			
-
-
+		 	$vent->cover_photo_name = $newFileName;
+			$vent->save();
+			$vent->images()->saveMany($images);
 			//report success
 			Session::flash('message', 'Successfully created new event!');
 			return Redirect::route('admin.events.index');
