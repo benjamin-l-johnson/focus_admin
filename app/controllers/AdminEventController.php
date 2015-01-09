@@ -50,7 +50,6 @@ class AdminEventController extends BaseController {
 		//Validating input from the post
 		$validator = Validator::make(Input::all(), $rules);
 
-		// process the login
 		if ($validator->fails())
 		{
 			return Redirect::route('admin.events.create')
@@ -64,7 +63,6 @@ class AdminEventController extends BaseController {
 			$files = Input::file('images');
 			$uploadSuccess;
 			$newFileName;
-
 			$dir = Str::random(12);
 
 			//validate the image
@@ -98,19 +96,6 @@ class AdminEventController extends BaseController {
 				}
 			}
 
-			// store it
-			$vent = new Vent;
-
-			$vent->title      		= e(Input::get('title'));
-			$vent->read_more   		= e(Input::get('readMore'));
-			$vent->content 			= e(Input::get('content'));
-			$vent->date 			= e(Input::get('date'));
-			$vent->images_path  	= "images/$dir/";
-
-
-			//Now that it has been saved, sync the list
-			$vent->volunteers()->sync($volsList);
-
 			$images = array();
 
 			//save and move images
@@ -124,6 +109,7 @@ class AdminEventController extends BaseController {
 		        $uploadSuccess = $file->move($destinationPath, $newFileName);
 
 
+		        //some file was not moved properly return an error
 		       	if($uploadSuccess==false)
 				{
 		        	$error = 'Failed to move the file. Contact the sysadmin';
@@ -135,22 +121,35 @@ class AdminEventController extends BaseController {
 		        $images[] = new Image(array(
 		        						'path'=>$destinationPath.$newFileName,
 		        						'name'=>$newFileName,
-		        						'folder'=>$destinationPath
+		        						'folder'=>$dir
 		        						)
-
 		        	);
 
 		    }
 			
+			// store it
+			$vent = new Vent;
+
+			$vent->title      		= e(Input::get('title'));
+			$vent->read_more   		= e(Input::get('readMore'));
+			$vent->content 			= e(Input::get('content'));
+			$vent->date 			= e(Input::get('date'));
+			$vent->images_path  	= "images/$dir/";
+
 		 	$vent->cover_photo_name = $newFileName;
 			$vent->save();
+
+			//Now that it has been saved, sync the list
+			$vent->volunteers()->sync($volsList);
+			
 			$vent->images()->saveMany($images);
+			
 			//report success
-			Session::flash('message', 'Successfully created new event!');
+			Session::flash('message', "Successfully created new event! $vent->title");
 			return Redirect::route('admin.events.index');
 		}
 		else
-		{	//didn't attach photo throw error
+		{	//didn't attach photo return error
 			return Redirect::route('admin.events.create')
 				->withErrors(['No images attachted!'])->withInput();
 		}
@@ -184,8 +183,7 @@ class AdminEventController extends BaseController {
 	 */
 	public function show($id)
 	{
-		//		
-
+	
 		$events = Vent::find($id);
 		$images_path = Config::get('otherapp.images_path').e("/$events->images_path");
 
@@ -222,8 +220,132 @@ class AdminEventController extends BaseController {
 	 * @return Response
 	 */
 	public function update($id)
-	{
+	{		
+
 		$rules = array(
+			'title'       => 'required',
+			'content'      => 'required',
+			'readMore' => 'required',
+			'date' => 'required|date_format:"m/d/Y"'
+		);
+		
+		//Validating input from the post
+		$validator = Validator::make(Input::all(), $rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::route('admin.events.create')
+				->withErrors($validator)
+				->withInput(Input::except('images'));
+		} 
+
+		//if it did not fail find the event
+		$vent = Vent::find($id);
+
+		//get number of volunteers
+		$vols = Volunteer::all();
+		$volsList= array();
+			
+		foreach($vols as $vol)
+		{ 
+			//id they selected a volunteer	
+			if(Input::has("vID$vol->id"))
+			{
+				$volsList[] = $vol->id;
+			}
+		}
+
+		if(Input::hasFile('images'))
+		{
+			$files = Input::file('images');
+			$uploadSuccess;
+			$newFileName;
+			$dir = Str::random(12);
+
+			//validate the image
+			$rules = array(
+       				'file' => 'required|image'
+    				);
+
+			//validate the images
+			$valid = $this->imagesValid($files,$rules);
+
+			//images were not valid return error
+			if(!$valid)
+			{
+
+				$error = 'You can only upload png,gif,jpg, and jpeg';
+				return Redirect::route('admin.events.create')
+					->withErrors([$error])->withInput();
+			}
+
+
+			$images = array();
+
+			//save and move images
+			foreach($files as $file) 
+			{        		
+        		
+        		$destinationPath = Config::get('otherapp.images_path')."/images/$dir/";
+		        
+		        $newFileName =  Str::random(12);
+		        
+		        $uploadSuccess = $file->move($destinationPath, $newFileName);
+
+
+		        //some file was not moved properly return an error
+		       	if($uploadSuccess==false)
+				{
+		        	$error = 'Failed to move the file. Contact the sysadmin';
+					return Redirect::route('admin.events.create')
+					->withErrors([$error])->withInput();
+				}
+
+
+		        $images[] = new Image(array(
+		        		'path'=>$destinationPath.$newFileName,
+		        		'name'=>$newFileName,
+		        		'folder'=>$dir
+		        						)
+		        	);
+
+		    }
+			
+			$vent->title      		= e(Input::get('title'));
+			$vent->read_more   		= e(Input::get('readMore'));
+			$vent->content 			= e(Input::get('content'));
+			$vent->date 			= e(Input::get('date'));
+			$vent->images_path  	= "images/$dir/";
+		 	$vent->cover_photo_name = $newFileName;
+			$vent->save();
+
+
+			//Now that it has been saved, sync the list
+			$vent->volunteers()->sync($volsList);
+
+			$vent->images()->saveMany($images);
+			
+			//report success
+			Session::flash('message', "Successfully created new event! $vent->title");
+			return Redirect::route('admin.events.index');
+		}
+		else
+		{	
+
+			$vent->title      		= e(Input::get('title'));
+			$vent->read_more   		= e(Input::get('readMore'));
+			$vent->content 			= e(Input::get('content'));
+			$vent->date 			= e(Input::get('date'));
+			$vent->save();
+			
+			Session::flash('message', "Successfully edited event $vent->title!");
+				return Redirect::route('admin.events.index');
+		}
+		
+
+	}
+
+		/*$rules = array(
 			'title'       => 'required',
 			'content'      => 'required',
 			'readMore' => 'required|Max:120',
@@ -331,7 +453,7 @@ class AdminEventController extends BaseController {
 				return Redirect::route('admin.events.index');
 		}
 		
-	}
+	}*/
 
 	/**
 	 * Remove the specified resource from storage.
