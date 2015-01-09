@@ -64,7 +64,7 @@ class AdminEventController extends BaseController {
 			$uploadSuccess;
 			$newFileName;
 			$dir = Str::random(12);
-
+			$dir = "images/$dir/";
 			//validate the image
 			$rules = array(
        				'file' => 'required|image'
@@ -102,7 +102,7 @@ class AdminEventController extends BaseController {
 			foreach($files as $file) 
 			{        		
         		
-        		$destinationPath = Config::get('otherapp.images_path')."/images/$dir/";
+        		$destinationPath = Config::get('otherapp.images_path')."/$dir";
 		        
 		        $newFileName =  Str::random(12);
 		        
@@ -134,7 +134,7 @@ class AdminEventController extends BaseController {
 			$vent->read_more   		= e(Input::get('readMore'));
 			$vent->content 			= e(Input::get('content'));
 			$vent->date 			= e(Input::get('date'));
-			$vent->images_path  	= "images/$dir/";
+			$vent->images_path  	= $dir;
 
 		 	$vent->cover_photo_name = $newFileName;
 			$vent->save();
@@ -286,7 +286,7 @@ class AdminEventController extends BaseController {
 			foreach($files as $file) 
 			{        		
         		
-        		$destinationPath = Config::get('otherapp.images_path')."/images/$dir/";
+        		$destinationPath = Config::get('otherapp.images_path')."/$vent->images_path";
 		        
 		        $newFileName =  Str::random(12);
 		        
@@ -305,7 +305,7 @@ class AdminEventController extends BaseController {
 		        $images[] = new Image(array(
 		        		'path'=>$destinationPath.$newFileName,
 		        		'name'=>$newFileName,
-		        		'folder'=>$dir
+		        		'folder'=>$vent->images_path
 		        						)
 		        	);
 
@@ -315,7 +315,6 @@ class AdminEventController extends BaseController {
 			$vent->read_more   		= e(Input::get('readMore'));
 			$vent->content 			= e(Input::get('content'));
 			$vent->date 			= e(Input::get('date'));
-			$vent->images_path  	= "images/$dir/";
 		 	$vent->cover_photo_name = $newFileName;
 			$vent->save();
 
@@ -345,115 +344,6 @@ class AdminEventController extends BaseController {
 
 	}
 
-		/*$rules = array(
-			'title'       => 'required',
-			'content'      => 'required',
-			'readMore' => 'required|Max:120',
-			'date' => 'date_format:"m/d/Y"'
-		);
-		
-		//Validating input from the post
-		$validator = Validator::make(Input::all(), $rules);
-
-		// process the input
-		if ($validator->fails())
-		{
-			return Redirect::route('admin.events.edit',$id)
-				->withErrors($validator)
-				->withInput(Input::except('images'));
-		} 
-
-		//if it did not fail find the event
-		$vent = Vent::find($id);
-
-		//get number of volunteers
-		$vols = Volunteer::all();
-		$volsList= array();
-		
-		foreach($vols as $vol)
-		{ 
-			//id they selected a volunteer	
-			if(Input::has("vID$vol->id"))
-			{
-				$volsList[] = $vol->id;
-			}
-		}
-
-		//if we uploaded images
-		if(Input::hasFile('images'))
-		{
-
-			//get multiple files
-			$files = Input::file('images');
-			$upload_success='';
-			
-			$newFileName;
-
-			//create random directory twelve letters long
-			$dir = Str::random(12);
-			
-
-			foreach($files as $file) 
-			{
-    			
-    			$rules = array('file' => 'required|image');
-		    	$validator = Validator::make(array('file'=> $file), $rules);
-    			
-    			if($validator->passes()){
-
-	        		//create a final path
-	        		$destinationPath = Config::get('otherapp.images_path').'/'.$vent->images_path;
-			        $newFileName = Str::random(12);
-			        $upload_success = $file->move($destinationPath, $newFileName);
-			    }
-			    else
-				{
-					$error = 'You can only upload png,gif,jpg, and jpeg';
-					return Redirect::route('admin.events.edit',$id)
-						->withErrors($validator)->withInput(Input::except('images'));
-				}
-			}
-			if( $upload_success )
-			{
-
-				// store it
-				$vent->title      		= e(Input::get('title'));
-				$vent->read_more   		= e(Input::get('readMore'));
-				$vent->content 			= e(Input::get('content'));
-				$vent->date 			= e(Input::get('date'));
-				$vent->save();
-
-				//sync all of them
-				$vent->volunteers()->sync($volsList);
-
-
-				Session::flash('message', "Successfully edited event #$vent->id");
-				return Redirect::route('admin.events.index');
-			}
-			else
-			{
-				$error = 'Failed to move the file. Contact the sysadmin';
-				return Redirect::route('admin.events.edit',$id)
-					->withErrors([$error])->withInput(Input::except('images'));
-			}
-		}
-		else
-		{
-				//store it
-				$vent->title      		= e(Input::get('title'));
-				$vent->read_more   		= e(Input::get('readMore'));
-				$vent->content 			= e(Input::get('content'));
-				$vent->date 			= e(Input::get('date'));
-				$vent->save();
-
-				//sync all of them
-				$vent->volunteers()->sync($volsList);
-				
-				Session::flash('message', "Successfully edited event #$id!");
-				return Redirect::route('admin.events.index');
-		}
-		
-	}*/
 
 	/**
 	 * Remove the specified resource from storage.
