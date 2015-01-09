@@ -1,5 +1,5 @@
 <?php
-// file: app/models/Post.php
+
 class Nonprofit extends Eloquent {
  
     /*protected $fillable = array(
@@ -9,5 +9,8 @@ class Nonprofit extends Eloquent {
 		return $this->belongsToMany('Vent', 'vents_nonprofits', 'nonprofit_id', 'vent_id');
 	}
  
- 
+	public function images()
+    {
+        return $this->morphMany('Image', 'imageable');
+    }
 }

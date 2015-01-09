@@ -8,5 +8,10 @@ class Student extends Eloquent {
     public function vents() {
 		return $this->belongsToMany('Vent', 'vents_students', 'student_id', 'vent_id');
 	}
+
+	public function images()
+    {
+        return $this->morphMany('Image', 'imageable');
+    }
  
 }

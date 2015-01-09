@@ -18,6 +18,13 @@ class Member extends Eloquent implements UserInterface, RemindableInterface {
                             'about','linkedin',
                             'facebook' ,'twitter','photo_path',
                             'order','instagram');
+    
+    
+    public function images()
+    {
+        return $this->morphMany('Image', 'imageable');
+    }
+
     /**
      * The attributes excluded from the model's JSON form.
      *

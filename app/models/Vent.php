@@ -20,6 +20,16 @@ class Vent extends Eloquent {
 		return $this->belongsToMany('Volunteer','vents_volunteers','vent_id','volunteer_id');
 	}
    
+    /*
+        Poly morphic image
+
+
+    */
+    public function images()
+    {
+        return $this->morphMany('Image', 'imageable');
+    }
+
    	public function setDateAttribute($value)
     {
     	//when we save the date attribute format it

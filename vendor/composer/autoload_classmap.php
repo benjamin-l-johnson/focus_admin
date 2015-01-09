@@ -33,6 +33,7 @@ return array(
     'ClassPreloader\\Parser\\DirVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/DirVisitor.php',
     'ClassPreloader\\Parser\\FileVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/FileVisitor.php',
     'ClassPreloader\\Parser\\NodeTraverser' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/NodeTraverser.php',
+    'CreateImagesTable' => $baseDir . '/app/database/migrations/2015_01_09_060418_create_images_table.php',
     'CreateMembersTable' => $baseDir . '/app/database/migrations/2014_09_14_200136_create_members_table.php',
     'CreateNonprofitsTable' => $baseDir . '/app/database/migrations/2014_09_10_010639_create_nonprofits_table.php',
     'CreatePasswordRemindersTable' => $baseDir . '/app/database/migrations/2014_12_21_041552_create_password_reminders_table.php',
